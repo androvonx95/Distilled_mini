@@ -4,3 +4,4 @@ tokenizers
 peft
 accelerate
 torch
+tqdm
