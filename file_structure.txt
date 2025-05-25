@@ -1,0 +1,11 @@
+model/
+├── data/
+│   └── distilled_data.jsonl  
+├── src/
+│   ├── model_config.py
+│   ├── model.py
+│   ├── tokenizer.py
+│   └── train.py
+├── scripts/
+│   └── prepare_data.py
+├── requirements.txt
