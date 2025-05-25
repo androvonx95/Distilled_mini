@@ -7,5 +7,6 @@ model/
 │   ├── tokenizer.py
 │   └── train.py
 ├── scripts/
+│   └── gen_deepseek_data.py
 │   └── prepare_data.py
 ├── requirements.txt
