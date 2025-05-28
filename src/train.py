@@ -38,7 +38,7 @@ def main():
         save_steps=100,
         logging_steps=10,
         no_cuda=not torch.cuda.is_available(),   #no_cuda=True,
-        evaluation_strategy="no",
+        # evaluation_strategy="no",
         report_to="none"
     )
 
