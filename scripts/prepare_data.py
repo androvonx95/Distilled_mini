@@ -1,5 +1,12 @@
-import json
+import sys
+import os
+
+# Add the root directory to sys.path
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+
 from src.tokenizer import get_tokenizer
+import json
+# from src.tokenizer import get_tokenizer
 
 tokenizer = get_tokenizer()
 
