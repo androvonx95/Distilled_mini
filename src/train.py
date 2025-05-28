@@ -1,3 +1,9 @@
+import sys
+import os
+
+# Add the root directory to sys.path
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+
 from transformers import Trainer, TrainingArguments, DataCollatorForLanguageModeling
 from src.model import get_model
 from src.tokenizer import get_tokenizer
