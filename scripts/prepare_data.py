@@ -19,15 +19,32 @@ def encode_example(prompt, completion):
 #   The attention mask is1s and 0s to ignore the padding 
 #   Tokenizer output is of the shape [ no_of_sentences , max_sequence_length ]
 
+import json
+
 def main():
-    with open("data/distilled_data.jsonl") as f:
-        raw_data = [json.loads(line) for line in f]
-
-    tokenized_data = [encode_example(d["prompt"], d["completion"]) for d in raw_data]
-
+    # Read and process the data
+    tokenized_data = []
+    
+    with open("data/distilled_data.jsonl", 'r') as f:
+        for line in f:
+            try:
+                item = json.loads(line.strip())
+                if not isinstance(item, dict):
+                    continue
+                    
+                prompt = item.get("prompt", "")
+                completion = item.get("completion", "")
+                
+                if prompt and completion:
+                    tokenized_data.append(encode_example(prompt, completion))
+            except json.JSONDecodeError:
+                print(f"Skipping malformed line: {line.strip()[:50]}...")
+            except Exception as e:
+                print(f"Error processing line: {e}")
+    
     import torch
     torch.save(tokenized_data, "data/tokenized_data.pt")
-    print(f"Saved {len(tokenized_data)} examples.")
+    print(f"Successfully processed {len(tokenized_data)} valid examples.")
 
 if __name__ == "__main__":
     main()

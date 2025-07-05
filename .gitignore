@@ -1,0 +1,91 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environment
+venv/
+env/
+ENV/
+.venv/
+env.bak/
+venv.bak/
+
+# IDE specific
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+
+# Model Checkpoints and Large Files
+data/*.pt
+data/*.bin
+data/*.safetensors
+*.pt
+*.bin
+*.safetensors
+*.h5
+*.ckpt
+*.model
+*.weights
+
+# Logs
+logs/
+*.log
+
+# Environment Files
+.env
+.env.local
+.env.*.local
+
+# Local Development
+*.local
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Cache files
+.cache/
+*.cache
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.backup
+
+# Model training artifacts
+runs/
+lightning_logs/
+mlruns/
+
+# Dataset files (if they are not part of version control)
+data/*.jsonl
+!data/new_training_data.jsonl  # Keep this file in version control

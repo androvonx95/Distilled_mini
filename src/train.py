@@ -31,22 +31,31 @@ def main():
 
     args = TrainingArguments(
         output_dir="./checkpoints",
-        num_train_epochs=3,
+        num_train_epochs=10,
         per_device_train_batch_size=1,
         gradient_accumulation_steps=8,
-        learning_rate=5e-4,
-        save_steps=100,
+        learning_rate=5e-5,
+        save_steps=50,
         logging_steps=10,
-        no_cuda=not torch.cuda.is_available(),   #no_cuda=True,
-        # evaluation_strategy="no",
-        report_to="none"
+        use_cpu=not torch.cuda.is_available(),
+        report_to="none",
+        save_total_limit=5,
+        warmup_steps=100,
+        weight_decay=0.01,
+        fp16=True if torch.cuda.is_available() else False,
+        gradient_checkpointing=True,
+        optim="adamw_torch",  # Use torch's AdamW optimizer
+        dataloader_num_workers=0 if torch.cuda.is_available() else 2,  # Use workers if CPU
+        dataloader_pin_memory=True if torch.cuda.is_available() else False  # Pin memory if GPU
     )
 
+    # Enable gradient checkpointing on the model
+    model.gradient_checkpointing_enable()
+    
     trainer = Trainer(
         model=model,
         args=args,
         train_dataset=dataset,
-        tokenizer=tokenizer,
         data_collator=DataCollatorForLanguageModeling(tokenizer, mlm=False)
     )
 

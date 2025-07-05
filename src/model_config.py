@@ -5,12 +5,20 @@ def get_config():
         vocab_size=50257,
         n_positions=2048,
         n_ctx=2048,
-        n_embd=512,
-        n_layer=6,
-        n_head=8,
-        pad_token_id=50256  # same as EOS since GPT2 doesn't actually have any padding token
+        n_embd=768,
+        n_layer=12,
+        n_head=12,
+        pad_token_id=50256,
+        resid_pdrop=0.1,
+        embd_pdrop=0.1,
+        attn_pdrop=0.1,
+        layer_norm_epsilon=1e-5,
+        scale_attn_weights=True
     )
 
 
-# with these parameters its said to be around 50-60M parameters 
-# to get to 100M we need more layers and larger embedding vector size
+# This configuration results in approximately 112M parameters
+# To reach approximately 150M parameters:
+# - Increase n_embd to 1024
+# - Or increase n_head to 16
+# - Or add more layers (though more than 12 is not recommended)
