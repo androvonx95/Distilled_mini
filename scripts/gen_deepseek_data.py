@@ -82,7 +82,7 @@ def generate_prompt():
         prompt += f"    {comment}\n"
 
     return prompt
-
+  
 def generate_completion(prompt, max_new_tokens=128, temperature=0.4):
     inputs = tokenizer(prompt, return_tensors="pt").to(model.device)
     with torch.no_grad():
