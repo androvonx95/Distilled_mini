@@ -18,7 +18,11 @@ class CodeDataset(torch.utils.data.Dataset):
 
     def __getitem__(self, idx):
         item = self.data[idx]
-        return {"input_ids": item["input_ids"], "attention_mask": item["attention_mask"], "labels": item["input_ids"]}
+        return {
+            "input_ids": torch.tensor(item["input_ids"]),
+            "attention_mask": torch.tensor(item["attention_mask"]),
+            "labels": torch.tensor(item["labels"])
+        }
 
     def __len__(self):
         return len(self.data)
@@ -31,22 +35,23 @@ def main():
 
     args = TrainingArguments(
         output_dir="./checkpoints",
-        num_train_epochs=30,
-        per_device_train_batch_size=2,
-        gradient_accumulation_steps=16,
-        learning_rate=3e-5,
-        save_steps=50,
-        logging_steps=10,
+        num_train_epochs=3,
+        per_device_train_batch_size=1,
+        gradient_accumulation_steps=2,
+        learning_rate=5e-4,
+        save_steps=1,
+        logging_steps=1,
         use_cpu=not torch.cuda.is_available(),
         report_to="none",
-        save_total_limit=5,
-        warmup_steps=100,
+        save_total_limit=1,
+        warmup_steps=10,
         weight_decay=0.01,
-        fp16=True if torch.cuda.is_available() else False,
-        gradient_checkpointing=True,
+        fp16=False,
+        gradient_checkpointing=False,
         optim="adamw_torch",
-        dataloader_num_workers=0 if torch.cuda.is_available() else 2,
-        dataloader_pin_memory=True if torch.cuda.is_available() else False
+        dataloader_num_workers=0,
+        dataloader_pin_memory=False,
+        max_steps=10
     )
 
     # Enable gradient checkpointing on the model

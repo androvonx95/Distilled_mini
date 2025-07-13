@@ -12,8 +12,18 @@ tokenizer = get_tokenizer()
 
 def encode_example(prompt, completion):
     full = prompt + completion
-    tokens = tokenizer(full, truncation=True, max_length=2048, return_tensors="pt")
-    return {"input_ids": tokens["input_ids"][0], "attention_mask": tokens["attention_mask"][0]}
+    tokens = tokenizer(
+        full,
+        truncation=True,
+        padding="max_length",
+        max_length=1024,  # Reduced from 2048 to match model config
+        return_tensors="pt"
+    )
+    return {
+        "input_ids": tokens["input_ids"][0],
+        "attention_mask": tokens["attention_mask"][0],
+        "labels": tokens["input_ids"][0]  # For causal LM training
+    }
 
 #   The input_ids part gets us the input tokens 
 #   The attention mask is1s and 0s to ignore the padding 
