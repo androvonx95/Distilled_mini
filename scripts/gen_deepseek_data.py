@@ -83,7 +83,7 @@ def generate_prompt():
 
     return prompt
   
-def generate_completion(prompt, max_new_tokens=128, temperature=0.4):
+def generate_completion(prompt, max_new_tokens=256, temperature=0.4):
     inputs = tokenizer(prompt, return_tensors="pt").to(model.device)
     with torch.no_grad():
         outputs = model.generate(
@@ -92,6 +92,8 @@ def generate_completion(prompt, max_new_tokens=128, temperature=0.4):
             temperature=temperature,
             do_sample=True,
             top_p=0.9,
+            top_k=50,
+            repetition_penalty=1.2,
             eos_token_id=tokenizer.eos_token_id,
             pad_token_id=tokenizer.eos_token_id
         )

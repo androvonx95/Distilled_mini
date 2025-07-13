@@ -31,10 +31,10 @@ def main():
 
     args = TrainingArguments(
         output_dir="./checkpoints",
-        num_train_epochs=10,
-        per_device_train_batch_size=1,
-        gradient_accumulation_steps=8,
-        learning_rate=5e-5,
+        num_train_epochs=30,
+        per_device_train_batch_size=2,
+        gradient_accumulation_steps=16,
+        learning_rate=3e-5,
         save_steps=50,
         logging_steps=10,
         use_cpu=not torch.cuda.is_available(),
@@ -44,9 +44,9 @@ def main():
         weight_decay=0.01,
         fp16=True if torch.cuda.is_available() else False,
         gradient_checkpointing=True,
-        optim="adamw_torch",  # Use torch's AdamW optimizer
-        dataloader_num_workers=0 if torch.cuda.is_available() else 2,  # Use workers if CPU
-        dataloader_pin_memory=True if torch.cuda.is_available() else False  # Pin memory if GPU
+        optim="adamw_torch",
+        dataloader_num_workers=0 if torch.cuda.is_available() else 2,
+        dataloader_pin_memory=True if torch.cuda.is_available() else False
     )
 
     # Enable gradient checkpointing on the model
