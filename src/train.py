@@ -19,9 +19,9 @@ class CodeDataset(torch.utils.data.Dataset):
     def __getitem__(self, idx):
         item = self.data[idx]
         return {
-            "input_ids": torch.tensor(item["input_ids"]),
-            "attention_mask": torch.tensor(item["attention_mask"]),
-            "labels": torch.tensor(item["labels"])
+            "input_ids": torch.tensor(item["input_ids"]).clone(),
+            "attention_mask": torch.tensor(item["attention_mask"]).clone(),
+            "labels": torch.tensor(item["labels"]).clone()
         }
 
     def __len__(self):
